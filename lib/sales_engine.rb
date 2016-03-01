@@ -11,5 +11,4 @@ class SalesEngine
     @items = ItemRepository.new(file_hash[:items])
     # @merchants = MerchantRepository.new(file_hash[:merchants])
   end
-
 end

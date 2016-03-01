@@ -28,6 +28,7 @@ class ItemRepository
   end
 
   def find_all_with_description(substring)
+    # return [] if substring.class != String
     items.find_all { |item| item.description.downcase.include?(substring.downcase)}
   end
 
@@ -35,4 +36,12 @@ class ItemRepository
     items.find_all { |item| item.unit_price.to_f == item_price }
   end
 
+  def find_all_by_price_in_range(price_range)
+    items.find_all { |item| price_range.include?(item.unit_price.to_f) }
+  end
+
+  def find_all_by_merchant_id(merchant_id)
+    merchant_id = merchant_id.to_s if merchant_id.class != String
+    items.find_all { |item| item.merchant_id == merchant_id }
+  end
 end

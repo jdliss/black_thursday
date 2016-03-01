@@ -1,3 +1,5 @@
+require 'bigdecimal'
+
 class Item
   attr_accessor :item
 
@@ -18,6 +20,7 @@ class Item
   end
 
   def unit_price
+    # BigDecimal.new(item[3]).to_s
     item[3]
   end
 

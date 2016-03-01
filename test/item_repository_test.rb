@@ -10,6 +10,8 @@ class ItemRepositoryTest < Minitest::Test
     @repository = ItemRepository.new("./data/items.csv")
 
   end
+
+  # TEST FOR EDGE CASES
   def test_returns_instance
     assert repository.instance_of?(ItemRepository)
   end
@@ -49,5 +51,23 @@ class ItemRepositoryTest < Minitest::Test
     assert results.empty?
   end
 
+  def test_find_all_by_price_in_range
+    results = repository.find_all_by_price_in_range(100..200)
+    assert results.is_a?(Array)
+    assert_equal 10, results.length
 
+    results = repository.find_all_by_price_in_range(1000000..2000000)
+    assert results.is_a?(Array)
+    assert results.empty?
+  end
+
+  def test_find_all_by_merchant_id
+    results = repository.find_all_by_merchant_id("12334185")
+    assert results.is_a?(Array)
+    assert_equal 6, results.length
+
+    results = repository.find_all_by_merchant_id("ksdhkj")
+    assert results.is_a?(Array)
+    assert results.empty?
+  end
 end
