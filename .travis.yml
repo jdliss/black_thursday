@@ -1,4 +1,4 @@
 language: ruby
-script: bundle exec mrspec --color
+script: bundle exec for file in spec/*.rb; do ruby $file; done 
 rvm:
  - 2.3.0
