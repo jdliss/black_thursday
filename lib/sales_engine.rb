@@ -4,13 +4,18 @@ require 'csv'
 require 'pry'
 
 class SalesEngine
-  attr_accessor :items,
-                :merchants
-
-  def from_csv(file_hash)
+  def self.from_csv(file_hash)
+    @merchants = MerchantRepository.new(file_hash[:merchants])
     @items = ItemRepository.new(file_hash[:items])
-    # @merchants = MerchantRepository.new(file_hash[:merchants])
 
     SalesEngine
+  end
+
+  def self.merchants
+    @merchants
+  end
+
+  def self.items
+    @items
   end
 end

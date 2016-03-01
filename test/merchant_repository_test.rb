@@ -11,7 +11,6 @@ class ItemRepositoryTest < Minitest::Test
     @merchant_repository = MerchantRepository.new("./data/merchants.csv")
   end
 
-
   # TEST EDGE CASES
   def test_returns_instance
     assert merchant_repository.instance_of?(MerchantRepository)
