@@ -1,5 +1,5 @@
 language: ruby
 # script: bundle exec mrspec --color
-script: ruby test/*
+script: for file in test/*.rb; do ruby $file;  done
 rvm:
  - 2.3.0
