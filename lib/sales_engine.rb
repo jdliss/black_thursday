@@ -10,5 +10,7 @@ class SalesEngine
   def from_csv(file_hash)
     @items = ItemRepository.new(file_hash[:items])
     # @merchants = MerchantRepository.new(file_hash[:merchants])
+
+    SalesEngine
   end
 end

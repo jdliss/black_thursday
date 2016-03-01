@@ -2,6 +2,7 @@ gem 'minitest', '~> 5.2'
 require 'minitest/autorun'
 require 'minitest/pride'
 require_relative "../lib/item_repository"
+# require "item_repository"
 
 class ItemRepositoryTest < Minitest::Test
   attr_accessor :repository
@@ -34,6 +35,7 @@ class ItemRepositoryTest < Minitest::Test
   def test_find_all_by_description
     results = repository.find_all_with_description("These")
     assert results.is_a?(Array)
+    assert results[0].is_a?(Item)
     assert_equal 122, results.length
 
     results = repository.find_all_with_description("skdhfkshjf")
@@ -45,6 +47,7 @@ class ItemRepositoryTest < Minitest::Test
   def test_find_all_by_price
     results = repository.find_all_by_price(1200)
     assert results.is_a?(Array)
+    assert results[0].is_a?(Item)
     assert_equal 41, results.length
 
     results = repository.find_all_by_price(35465768798)
@@ -55,6 +58,7 @@ class ItemRepositoryTest < Minitest::Test
   def test_find_all_by_price_in_range
     results = repository.find_all_by_price_in_range(100..200)
     assert results.is_a?(Array)
+    assert results[0].is_a?(Item)
     assert_equal 10, results.length
 
     results = repository.find_all_by_price_in_range(1000000..2000000)
@@ -65,6 +69,7 @@ class ItemRepositoryTest < Minitest::Test
   def test_find_all_by_merchant_id
     results = repository.find_all_by_merchant_id("12334185")
     assert results.is_a?(Array)
+    assert results[0].is_a?(Item)
     assert_equal 6, results.length
 
     results = repository.find_all_by_merchant_id("ksdhkj")

@@ -2,6 +2,7 @@ gem 'minitest', '~> 5.2'
 require 'minitest/autorun'
 require 'minitest/pride'
 require_relative "../lib/merchant_repository"
+# require "merchant_repository"
 
 class ItemRepositoryTest < Minitest::Test
   attr_accessor :merchant_repository
@@ -35,6 +36,7 @@ class ItemRepositoryTest < Minitest::Test
   def test_find_all_by_price
     results = merchant_repository.find_all_by_name("shop")
     assert results.is_a?(Array)
+    assert results[0].is_a?(Merchant)
     assert_equal 26, results.length
 
     results = merchant_repository.find_all_by_name("jsdhgfks")
