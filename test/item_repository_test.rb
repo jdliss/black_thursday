@@ -8,7 +8,6 @@ class ItemRepositoryTest < Minitest::Test
 
   def setup
     @repository = ItemRepository.new("./data/items.csv")
-
   end
 
   # TEST FOR EDGE CASES
@@ -23,11 +22,13 @@ class ItemRepositoryTest < Minitest::Test
   def test_find_by_id
     assert repository.find_by_id("263403127").is_a?(Item)
     assert_equal "Knitted winter snood", repository.find_by_id("263403127").name
+    assert_equal nil, repository.find_by_id("gfgjhk")
   end
 
   def test_find_by_name
     assert repository.find_by_name("Knitted winter snood").is_a?(Item)
     assert_equal "263403127", repository.find_by_name("Knitted winter snood").id
+    assert_equal nil, repository.find_by_name("gfgjhk")
   end
 
   def test_find_all_by_description
