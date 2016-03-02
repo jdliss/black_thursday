@@ -9,14 +9,14 @@ class ItemRepositoryTest < Minitest::Test
 
   def setup
     se = SalesEngine.from_csv({
-      :items     => "./data/items.csv",
-      :merchants => "./data/merchants.csv",
+      :items     => "./data/items_small.csv",
+      :merchants => "./data/merchants_small.csv",
     })
 
     @merchant_repository = se.merchants
   end
 
-  # TEST EDGE CASES
+  # TODO TEST EDGE CASES
   def test_returns_instance
     assert merchant_repository.instance_of?(MerchantRepository)
   end
@@ -38,10 +38,10 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_find_all_by_price
-    results = merchant_repository.find_all_by_name("shop")
+    results = merchant_repository.find_all_by_name("LolaMarleys")
     assert results.is_a?(Array)
     assert results[0].is_a?(Merchant)
-    assert_equal 26, results.length
+    assert_equal 2, results.length
 
     results = merchant_repository.find_all_by_name("jsdhgfks")
     assert results.is_a?(Array)

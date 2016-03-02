@@ -10,29 +10,31 @@ class ItemTest < Minitest::Test
                 :item
   def setup
     se = SalesEngine.from_csv({
-      :items     => "./data/items.csv",
-      :merchants => "./data/merchants.csv",
+      :items     => "./data/items_small.csv",
+      :merchants => "./data/merchants_small.csv",
     })
 
     @items_repository = se.items
-    @item = @items_repository.all[3]
+    @item = @items_repository.all[0]
   end
 
+# TODO TEST EDGE CASES
   def test_can_return_id_of_item
-    assert_equal "263396013", item.id
+    assert_equal "263395617", item.id
   end
 
   def test_can_return_name_of_item
-    assert_equal "Free standing Woden letters", item.name
+    assert_equal "Glitter scrabble frames", item.name
   end
 
   def test_can_return_description_of_item
-    description = "Free standing wooden letters\n\n15cm\n\nAny colours"
+    description = "Glitter scrabble frames\n\nAny colour glitter\nAny wording\n
+Available colour scrabble tiles\nPink\nBlue\nBlack\nWooden"
     assert_equal description, item.description
   end
 
   def test_can_return_unit_price_of_item
-    assert_equal 7.0, item.unit_price
+    assert_equal 13.0, item.unit_price
   end
 
   def test_can_return_merchant_id_of_item
@@ -40,23 +42,23 @@ class ItemTest < Minitest::Test
   end
 
   def test_can_return_created_at_of_item
-    assert_equal "2016-01-11 11:51:36 UTC", item.created_at
+    assert_equal "2016-01-11 11:51:37 UTC", item.created_at
   end
 
   def test_can_return_updated_at_of_item
-    assert_equal "2001-09-17 15:28:43 UTC", item.updated_at
+    assert_equal "1993-09-29 11:56:40 UTC", item.updated_at
   end
 
   def test_unit_price_to_dollars
-    assert_equal 7.0, item.unit_price_to_dollars
+    assert_equal 13.0, item.unit_price_to_dollars
   end
 
   def test_can_traverse_object_links_and_find_merchant_linked_to_item
     sales_engine = SalesEngine.from_csv({
-      :items     => "./data/items.csv",
-      :merchants => "./data/merchants.csv"})
+      :items     => "./data/items_small.csv",
+      :merchants => "./data/merchants_small.csv"})
 
-    item2 = sales_engine.items.find_by_id("263408101")
+    item2 = sales_engine.items.find_by_id("263396013")
     assert item2.is_a?(Item)
 
     assert item.item_repository.is_a?(ItemRepository)
