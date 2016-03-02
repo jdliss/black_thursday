@@ -1,14 +1,18 @@
 require 'csv'
 require 'pry'
 require_relative 'merchant'
+require_relative 'sales_engine'
 
 class MerchantRepository
-  attr_accessor :merchants
-  def initialize(file_path)
-    csv_table = CSV.readlines(file_path, headers: true)
+  attr_accessor :merchants,
+                :sales_engine
 
-    @merchants = csv_table.map do |merchant|
-      Merchant.new(merchant)
+  def initialize(merchants_data, sales_engine)
+    @sales_engine = sales_engine
+
+
+    @merchants = merchants_data.map do |merchant|
+      Merchant.new(merchant, self)
     end
     @merchants
   end

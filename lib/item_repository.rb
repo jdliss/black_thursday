@@ -4,13 +4,14 @@ require_relative 'item'
 
 class ItemRepository
 
-  attr_accessor :items
+  attr_accessor :items,
+                :sales_engine
 
-  def initialize(file_path)
-    csv_table = CSV.readlines(file_path, headers: true)
+  def initialize(items_data, sales_engine)
+    @sales_engine = sales_engine
 
-    @items = csv_table.map do |item|
-      Item.new(item)
+    @items = items_data.map do |item|
+      Item.new(item, self)
     end
     @items
   end
@@ -37,7 +38,7 @@ class ItemRepository
   end
 
   def find_all_by_price_in_range(price_range)
-    items.find_all { |item| price_range.include?(item.unit_price.to_f) }
+    items.find_all { |item| price_range.include?(item.unit_price) }
   end
 
   def find_all_by_merchant_id(merchant_id)

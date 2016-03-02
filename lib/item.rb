@@ -1,39 +1,45 @@
 require 'bigdecimal'
 
 class Item
-  attr_accessor :item
+  attr_accessor :item_data,
+                :item_repository
 
-  def initialize(item)
-    @item = item
+  def initialize(item_data, item_repository)
+    @item_repository = item_repository
+    @item_data = item_data
+  end
+
+  def merchant
+    item_repository.sales_engine.merchant_repository.find_by_id(merchant_id)
   end
 
   def id
-    item[0]
+    item_data[0]
   end
 
   def name
-    item[1]
+    item_data[1]
   end
 
   def description
-    item[2]
+    item_data[2]
   end
 
   def unit_price
-    # BigDecimal.new(item[3]).to_s
-    item[3]
+    num = '%.2f' % (item_data[3].to_f/100)
+    BigDecimal.new(num)
   end
 
   def merchant_id
-    item[4]
+    item_data[4]
   end
 
   def created_at
-    item[5]
+    item_data[5]
   end
 
   def updated_at
-    item[6]
+    item_data[6]
   end
 
   def unit_price_to_dollars

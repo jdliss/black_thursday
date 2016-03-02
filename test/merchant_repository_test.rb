@@ -2,13 +2,18 @@ gem 'minitest', '~> 5.2'
 require 'minitest/autorun'
 require 'minitest/pride'
 require_relative "../lib/merchant_repository"
-# require "merchant_repository"
+require_relative "../lib/sales_engine"
 
 class ItemRepositoryTest < Minitest::Test
   attr_accessor :merchant_repository
 
   def setup
-    @merchant_repository = MerchantRepository.new("./data/merchants.csv")
+    se = SalesEngine.from_csv({
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+    })
+
+    @merchant_repository = se.merchants
   end
 
   # TEST EDGE CASES

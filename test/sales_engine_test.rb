@@ -4,12 +4,6 @@ require 'minitest/pride'
 require_relative "../lib/sales_engine"
 
 class SalesEngineTest < Minitest::Test
-  def test_sales_engine_instance
-    sales_engine = SalesEngine.new
-
-    assert sales_engine
-  end
-
   def test_sales_engine_from_csv
     se = SalesEngine.from_csv({
       :items     => "./data/items.csv",
