@@ -42,7 +42,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_average_item_price_for_merchant
-    assert_equal 11, sa.average_item_price_for_merchant('12334185')
+    assert_equal 11, sa.average_item_price_for_merchant(12334185)
   end
 
   def test_average_average_price_per_merchant

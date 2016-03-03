@@ -1,6 +1,7 @@
 gem 'minitest', '~> 5.2'
 require 'minitest/autorun'
 require 'minitest/pride'
+require 'time'
 require_relative "../lib/item"
 require_relative '../lib/item_repository'
 require_relative '../lib/sales_engine'
@@ -20,7 +21,7 @@ class ItemTest < Minitest::Test
 
 # TODO TEST EDGE CASES
   def test_can_return_id_of_item
-    assert_equal "263395617", item.id
+    assert_equal 263395617, item.id
   end
 
   def test_can_return_name_of_item
@@ -38,15 +39,15 @@ Available colour scrabble tiles\nPink\nBlue\nBlack\nWooden"
   end
 
   def test_can_return_merchant_id_of_item
-    assert_equal "12334185", item.merchant_id
+    assert_equal 12334185, item.merchant_id
   end
 
   def test_can_return_created_at_of_item
-    assert_equal "2016-01-11 11:51:37 UTC", item.created_at
+    assert_equal Time.parse("2016-01-11 11:51:37 UTC"), item.created_at
   end
 
   def test_can_return_updated_at_of_item
-    assert_equal "1993-09-29 11:56:40 UTC", item.updated_at
+    assert_equal Time.parse("1993-09-29 11:56:40 UTC"), item.updated_at
   end
 
   def test_unit_price_to_dollars
@@ -58,7 +59,7 @@ Available colour scrabble tiles\nPink\nBlue\nBlack\nWooden"
       :items     => "./data/items_small.csv",
       :merchants => "./data/merchants_small.csv"})
 
-    item2 = sales_engine.items.find_by_id("263396013")
+    item2 = sales_engine.items.find_by_id(263396013)
     assert item2.is_a?(Item)
 
     assert item.item_repository.is_a?(ItemRepository)
@@ -67,10 +68,10 @@ Available colour scrabble tiles\nPink\nBlue\nBlack\nWooden"
     merchant_repository = item_repository.sales_engine.merchant_repository
     assert merchant_repository.is_a?(MerchantRepository)
 
-    items_merchant = merchant_repository.find_by_id(item2.merchant_id)
+    items_merchant = merchant_repository.find_by_id(item2.merchant_id.to_i)
     assert items_merchant.is_a?(Merchant)
 
-    assert_equal item2.merchant_id, items_merchant.id
+    assert_equal item2.merchant_id.to_i, items_merchant.id
   end
 
   def test_can_find_all_merchant_items_using_items_merchant_method
@@ -78,6 +79,6 @@ Available colour scrabble tiles\nPink\nBlue\nBlack\nWooden"
 
     assert new_item.is_a?(Item)
     assert new_item.merchant.is_a?(Merchant)
-    assert_equal new_item.merchant_id, new_item.merchant.id
+    assert_equal new_item.merchant_id.to_i, new_item.merchant.id
   end
 end

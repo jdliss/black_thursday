@@ -26,14 +26,14 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_find_by_id
-    assert merchant_repository.find_by_id("12334105").is_a?(Merchant)
-    assert_equal "Shopin1901", merchant_repository.find_by_id("12334105").name
+    assert merchant_repository.find_by_id(12334105).is_a?(Merchant)
+    assert_equal "Shopin1901", merchant_repository.find_by_id(12334105).name
     assert_equal nil, merchant_repository.find_by_id("gfgjhk")
   end
 
   def test_find_by_name
     assert merchant_repository.find_by_name("Shopin1901").is_a?(Merchant)
-    assert_equal "12334105", merchant_repository.find_by_name("Shopin1901").id
+    assert_equal 12334105, merchant_repository.find_by_name("Shopin1901").id
     assert_equal nil, merchant_repository.find_by_name("gfgjhk")
   end
 

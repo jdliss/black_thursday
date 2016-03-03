@@ -31,14 +31,14 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_find_by_id
-    assert items_repository.find_by_id("263396209").is_a?(Item)
-    assert_equal "Vogue Paris Original Givenchy 2307", items_repository.find_by_id("263396209").name
+    assert items_repository.find_by_id(263396209).is_a?(Item)
+    assert_equal "Vogue Paris Original Givenchy 2307", items_repository.find_by_id(263396209).name
     assert_equal nil, items_repository.find_by_id("gfgjhk")
   end
 
   def test_find_by_name
     assert items_repository.find_by_name("Vogue Paris Original Givenchy 2307").is_a?(Item)
-    assert_equal "263396209", items_repository.find_by_name("Vogue Paris Original Givenchy 2307").id
+    assert_equal 263396209, items_repository.find_by_name("Vogue Paris Original Givenchy 2307").id
     assert_equal nil, items_repository.find_by_name("gfgjhk")
   end
 

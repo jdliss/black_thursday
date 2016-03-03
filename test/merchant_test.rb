@@ -21,7 +21,7 @@ class MerchantTest < Minitest::Test
 
   # TODO TEST EDGE CASES
   def test_can_return_id_of_merchant
-    assert_equal "12334123", merchant.id
+    assert_equal 12334123, merchant.id
   end
 
   def test_can_return_name_of_merchant
@@ -33,7 +33,7 @@ class MerchantTest < Minitest::Test
       :items     => "./data/items_small.csv",
       :merchants => "./data/merchants_small.csv"})
 
-    new_merchant = sales_engine.merchants.find_by_id("12334185")
+    new_merchant = sales_engine.merchants.find_by_id(12334185)
     assert new_merchant.is_a?(Merchant)
 
     assert new_merchant.merchant_repository.is_a?(MerchantRepository)
@@ -41,7 +41,7 @@ class MerchantTest < Minitest::Test
 
     assert merchant_repository.sales_engine.item_repository.is_a?(ItemRepository)
     items = merchant_repository.sales_engine.item_repository
-    merchant_items = items.find_all_by_merchant_id("12334185")
+    merchant_items = items.find_all_by_merchant_id(12334185)
 
     assert_equal 3, merchant_items.length
     assert_equal "Glitter scrabble frames", merchant_items[0].name

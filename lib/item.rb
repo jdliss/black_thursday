@@ -31,7 +31,7 @@ class Item
   end
 
   def merchant_id
-    item_data[4]
+    item_data[4].to_i
   end
 
   def created_at

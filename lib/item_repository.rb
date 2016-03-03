@@ -25,6 +25,7 @@ class ItemRepository
   end
 
   def find_by_id(item_id)
+    item_id = item_id.to_i if item_id.class == String
     items.find { |item| item.id == item_id }
   end
 
@@ -46,7 +47,7 @@ class ItemRepository
   end
 
   def find_all_by_merchant_id(merchant_id)
-    merchant_id = merchant_id.to_s if merchant_id.class != String
+    merchant_id = merchant_id.to_i if merchant_id.class == String
     items.find_all { |item| item.merchant_id == merchant_id }
   end
 end
