@@ -11,6 +11,6 @@ ratings:
   paths:
 - "lib/*.rb"
 exclude_paths:
-- test/*.rb
-- data/*.csv
-- utility_scripts/*.rb
+- "test/*.rb"
+- "data/*.csv"
+- "utility_scripts/*.rb"
