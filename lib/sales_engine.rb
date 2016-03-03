@@ -10,9 +10,9 @@ class SalesEngine
 
 
   def initialize(items_table=nil, merchants_table=nil, invoice_table=nil)
-    @items = ItemRepository.new(items_table, self)
-    @merchants = MerchantRepository.new(merchants_table, self)
-    @invoices = InvoiceRepository.new(invoice_table, self)
+    @items = ItemRepository.new(items_table, self) if items_table
+    @merchants = MerchantRepository.new(merchants_table, self) if merchants_table
+    @invoices = InvoiceRepository.new(invoice_table, self) if invoice_table
   end
 
   def self.from_csv(file_hash)
