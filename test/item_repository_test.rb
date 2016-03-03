@@ -27,7 +27,7 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_see_how_many_items_are_in_dataset
-    assert_equal 18, items_repository.all.length
+    assert_equal 19, items_repository.all.length
   end
 
   def test_find_by_id

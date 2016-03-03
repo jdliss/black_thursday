@@ -32,4 +32,8 @@ class Invoice
   def updated_at
     Time.parse(invoice_data[5])
   end
+
+  def merchant
+    invoice_repository.sales_engine.merchants.find_by_id(merchant_id)
+  end
 end

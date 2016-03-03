@@ -28,17 +28,17 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_find_average_number_of_items_per_merchant
-    assert_equal 2.0, sa.average_items_per_merchant
+    assert_equal 1.9, sa.average_items_per_merchant
   end
 
   def test_average_items_per_merchant_standard_deviation
-    assert_equal 0.94, sa.average_items_per_merchant_standard_deviation
+    assert_equal 0.9, sa.average_items_per_merchant_standard_deviation
   end
 
   def test_find_merchants_with_high_item_count
+    assert_equal 2, sa.merchants_with_high_item_count.length
     assert sa.merchants_with_high_item_count[0].is_a?(Merchant)
     assert sa.merchants_with_high_item_count[1].is_a?(Merchant)
-    assert_equal 2, sa.merchants_with_high_item_count.length
   end
 
   def test_average_item_price_for_merchant
@@ -46,15 +46,15 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_average_average_price_per_merchant
-    assert_equal 62.47, sa.average_average_price_per_merchant
+    assert_equal 64.22, sa.average_average_price_per_merchant
   end
 
   def test_can_find_average_item_prices
-    assert_equal 68.93, sa.average_price_of_items
+    assert_equal 69.51, sa.average_price_of_items
   end
 
   def test_can_find_standard_deviation_of_item_prices
-    assert_equal 97.62, sa.average_item_price_standard_deviation
+    assert_equal 94.9, sa.average_item_price_standard_deviation
   end
 
   def test_can_find_golden_items

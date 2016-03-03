@@ -42,4 +42,18 @@ class InvoiceTest < Minitest::Test
   def test_can_find_date_updated
     assert_equal Time.parse("2014-03-15"), invoice.updated_at
   end
+
+  def test_can_traverse_chain_to_find_merchant_associated_with_invoice
+    sales_engine = invoice.invoice_repository.sales_engine
+    assert sales_engine.is_a?(SalesEngine)
+
+    merchant = sales_engine.merchants.find_by_id(invoice.merchant_id)
+    assert merchant.is_a?(Merchant)
+    assert_equal merchant.id, invoice.merchant_id
+  end
+
+  def test_can_use_merchant_method_to_return_merchant_associated_with_invoice
+    merchant = invoice.merchant
+    assert_equal merchant.id, invoice.merchant_id
+  end
 end
