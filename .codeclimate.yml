@@ -1,0 +1,16 @@
+engines:
+  rubocop:
+    enabled: true
+  golint:
+    enabled: true
+  eslint:
+    enabled: true
+  csslint:
+    enabled: true
+ratings:
+  paths:
+exclude_paths:
+- spec/**/*
+- "**/vendor/**/*"
+- data/**
+- utility_scripts/**

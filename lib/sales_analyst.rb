@@ -67,7 +67,7 @@ class SalesAnalyst
   def golden_items
     twice_avg_price_std_dev = average_item_price_standard_deviation * 2
     average_price = average_price_of_items
-    difference = sales_engine.items.all.map do |item|
+    sales_engine.items.all.map do |item|
       item if item.unit_price > twice_avg_price_std_dev + average_price
     end.compact
   end
