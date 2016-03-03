@@ -10,7 +10,7 @@ class Item
   end
 
   def merchant
-    item_repository.sales_engine.merchant_repository.find_by_id(merchant_id)
+    item_repository.sales_engine.merchants.find_by_id(merchant_id)
   end
 
   def id

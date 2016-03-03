@@ -39,8 +39,8 @@ class MerchantTest < Minitest::Test
     assert new_merchant.merchant_repository.is_a?(MerchantRepository)
     merchant_repository = new_merchant.merchant_repository
 
-    assert merchant_repository.sales_engine.item_repository.is_a?(ItemRepository)
-    items = merchant_repository.sales_engine.item_repository
+    assert merchant_repository.sales_engine.items.is_a?(ItemRepository)
+    items = merchant_repository.sales_engine.items
     merchant_items = items.find_all_by_merchant_id(12334185)
 
     assert_equal 3, merchant_items.length

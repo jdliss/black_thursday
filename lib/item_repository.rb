@@ -13,7 +13,6 @@ class ItemRepository
     @items = items_data.map do |item|
       Item.new(item, self)
     end
-    @items
   end
 
   def inspect

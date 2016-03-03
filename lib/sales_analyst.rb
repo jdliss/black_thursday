@@ -8,15 +8,14 @@ class SalesAnalyst
   end
 
   def average_items_per_merchant
-    number_of_items = sales_engine.merchants.all.map do |merchant|
-      merchant.items.length
-    end
-    (number_of_items.reduce(:+).to_f/number_of_items.length).round(2)
+    (sales_engine.items.all.count/sales_engine.merchants.all.count.to_f).round(2)
   end
 
   def average_items_per_merchant_standard_deviation
+    average = average_items_per_merchant
+
     difference = sales_engine.merchants.all.map do |merchant|
-      (merchant.items.length - average_items_per_merchant) ** 2
+      (merchant.items.length - average) ** 2
     end
 
     sum = difference.reduce(:+)
@@ -24,11 +23,11 @@ class SalesAnalyst
   end
 
   def merchants_with_high_item_count
-    sales_engine.merchants.all.map do |merchant|
-      average = average_items_per_merchant
-      standard_deviation = average_items_per_merchant_standard_deviation
-      one_std_dev_above_average = standard_deviation + average
+    average = average_items_per_merchant
+    standard_deviation = average_items_per_merchant_standard_deviation
+    one_std_dev_above_average = standard_deviation + average
 
+    sales_engine.merchants.all.map do |merchant|
       merchant if merchant.items.count > one_std_dev_above_average
     end.compact
   end
@@ -38,14 +37,14 @@ class SalesAnalyst
     item_prices = merchant.items.map do |item|
       item.unit_price
     end
-    item_prices.reduce(:+).to_f/item_prices.length
+    (item_prices.reduce(:+)/item_prices.length).round(2)
   end
 
   def average_average_price_per_merchant
     item_prices = sales_engine.merchants.all.map do |merchant|
       average_item_price_for_merchant(merchant.id)
     end
-    (item_prices.reduce(:+).to_f/item_prices.length).round(2)
+    (item_prices.reduce(:+)/item_prices.length).round(2)
   end
 
   def average_price_of_items

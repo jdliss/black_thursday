@@ -65,7 +65,7 @@ Available colour scrabble tiles\nPink\nBlue\nBlack\nWooden"
     assert item.item_repository.is_a?(ItemRepository)
     item_repository = item.item_repository
 
-    merchant_repository = item_repository.sales_engine.merchant_repository
+    merchant_repository = item_repository.sales_engine.merchants
     assert merchant_repository.is_a?(MerchantRepository)
 
     items_merchant = merchant_repository.find_by_id(item2.merchant_id.to_i)
