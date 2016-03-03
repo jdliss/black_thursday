@@ -9,8 +9,8 @@ engines:
     enabled: true
 ratings:
   paths:
+- lib/**
 exclude_paths:
-- spec/**/*
-- "**/vendor/**/*"
+- test/**
 - data/**
 - utility_scripts/**
