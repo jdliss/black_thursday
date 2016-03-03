@@ -9,8 +9,8 @@ engines:
     enabled: true
 ratings:
   paths:
-- lib/**
+- lib/*.rb
 exclude_paths:
-- test/**
-- data/**
-- utility_scripts/**
+- test/*.rb
+- data/*.csv
+- utility_scripts/*.rb
