@@ -27,7 +27,7 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_see_how_many_items_are_in_dataset
-    assert_equal 10, items_repository.all.length
+    assert_equal 18, items_repository.all.length
   end
 
   def test_find_by_id
@@ -69,7 +69,7 @@ class ItemRepositoryTest < Minitest::Test
     results = items_repository.find_all_by_price_in_range(12..14)
     assert results.is_a?(Array)
     assert results[0].is_a?(Item)
-    assert_equal 2, results.length
+    assert_equal 3, results.length
 
     results = items_repository.find_all_by_price_in_range(100000000..200000000)
     assert results.is_a?(Array)

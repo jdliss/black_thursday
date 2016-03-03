@@ -4,7 +4,7 @@ require 'minitest/pride'
 require_relative "../lib/merchant_repository"
 require_relative "../lib/sales_engine"
 
-class ItemRepositoryTest < Minitest::Test
+class MerchantRepositoryTest < Minitest::Test
   attr_accessor :merchant_repository
 
   def setup
@@ -38,10 +38,10 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_find_all_by_price
-    results = merchant_repository.find_all_by_name("LolaMarleys")
+    results = merchant_repository.find_all_by_name("Madewithgitterxx")
     assert results.is_a?(Array)
     assert results[0].is_a?(Merchant)
-    assert_equal 2, results.length
+    assert_equal 1, results.length
 
     results = merchant_repository.find_all_by_name("jsdhgfks")
     assert results.is_a?(Array)

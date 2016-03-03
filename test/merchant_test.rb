@@ -21,11 +21,11 @@ class MerchantTest < Minitest::Test
 
   # TODO TEST EDGE CASES
   def test_can_return_id_of_merchant
-    assert_equal "12334115", merchant.id
+    assert_equal "12334123", merchant.id
   end
 
   def test_can_return_name_of_merchant
-    assert_equal "LolaMarleys", merchant.name
+    assert_equal "Keckenbauer", merchant.name
   end
 
   def test_can_traverse_object_links_and_find_items_linked_to_merchant
@@ -48,7 +48,7 @@ class MerchantTest < Minitest::Test
   end
 
   def test_can_find_all_merchant_items_using_merchant_items_method
-    new_merchant = @merchant_repository.all[9]
+    new_merchant = @merchant_repository.all[8]
     assert new_merchant.items.is_a?(Array)
     assert new_merchant.is_a?(Merchant)
     assert_equal 3, new_merchant.items.length
