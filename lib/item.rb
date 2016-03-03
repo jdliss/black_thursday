@@ -14,7 +14,7 @@ class Item
   end
 
   def id
-    item_data[0]
+    item_data[0].to_i
   end
 
   def name
@@ -35,11 +35,11 @@ class Item
   end
 
   def created_at
-    item_data[5]
+    Time.parse(item_data[5])
   end
 
   def updated_at
-    item_data[6]
+    Time.parse(item_data[6])
   end
 
   def unit_price_to_dollars

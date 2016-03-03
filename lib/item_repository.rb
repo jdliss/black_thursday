@@ -16,6 +16,10 @@ class ItemRepository
     @items
   end
 
+  def inspect
+    "#<#{self.class} #{@merchants.size} rows>"
+  end
+
   def all
     items
   end

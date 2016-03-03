@@ -58,7 +58,6 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_can_find_golden_items
-
     assert sa.golden_items.is_a?(Array)
     assert_equal 1, sa.golden_items.count
   end
