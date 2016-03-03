@@ -53,4 +53,32 @@ class MerchantTest < Minitest::Test
     assert new_merchant.is_a?(Merchant)
     assert_equal 3, new_merchant.items.length
   end
+
+  def test_can_traverse_chain_to_find_invoices_associated_with_merchant
+    se = SalesEngine.from_csv({
+      :items     => "./data/items_small.csv",
+      :merchants => "./data/merchants_small.csv",
+      :invoices  => "./data/invoices_small.csv"
+    })
+
+    merchant = se.merchants.all[9]
+    sales_engine = merchant.merchant_repository.sales_engine
+    assert sales_engine.is_a?(SalesEngine)
+
+    invoices = sales_engine.invoices.find_all_by_merchant_id(merchant.id)
+    assert invoices.is_a?(Array)
+    assert invoices[0].is_a?(Invoice)
+  end
+
+  def test_can_use_invoices_method_of_merchant
+    se = SalesEngine.from_csv({
+      :items     => "./data/items_small.csv",
+      :merchants => "./data/merchants_small.csv",
+      :invoices  => "./data/invoices_small.csv"
+    })
+
+    merchant = se.merchants.all[9]
+
+    assert_equal merchant.invoices[0].merchant_id, merchant.id
+  end
 end
