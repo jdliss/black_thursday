@@ -39,7 +39,7 @@ class InvoiceTest < Minitest::Test
     assert_equal Time.parse("2009-02-07 00:00:00 -0700"), invoice.created_at
   end
 
-  def test_can_find_date_created
+  def test_can_find_date_updated
     assert_equal Time.parse("2014-03-15 00:00:00 -0600"), invoice.updated_at
   end
 end
