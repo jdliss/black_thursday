@@ -1,3 +1,4 @@
+require 'bigdecimal'
 require_relative 'sales_engine'
 
 class SalesAnalyst
@@ -70,5 +71,82 @@ class SalesAnalyst
     sales_engine.items.all.map do |item|
       item if item.unit_price > twice_avg_price_std_dev + average_price
     end.compact
+  end
+
+  def average_invoices_per_merchant
+    (sales_engine.invoices.all.count/sales_engine.merchants.all.count.to_f).round(2)
+  end
+
+  def average_invoices_per_merchant_standard_deviation
+    average = average_invoices_per_merchant
+
+    difference = sales_engine.merchants.all.map do |merchant|
+      (merchant.invoices.length - average) ** 2
+    end
+
+    sum = difference.reduce(:+)
+    Math.sqrt(sum / (difference.length - 1)).round(2)
+  end
+
+  def top_merchants_by_invoice_count
+    average = average_invoices_per_merchant
+    standard_deviation = average_invoices_per_merchant_standard_deviation
+    two_std_dev_above_average = (standard_deviation * 2) + average
+
+    sales_engine.merchants.all.map do |merchant|
+      merchant if merchant.invoices.count > two_std_dev_above_average
+    end.compact
+  end
+
+  def bottom_merchants_by_invoice_count
+    average = average_invoices_per_merchant
+    standard_deviation = average_invoices_per_merchant_standard_deviation
+    two_std_dev_below_average = average - (standard_deviation * 2)
+
+    sales_engine.merchants.all.map do |merchant|
+      merchant if merchant.invoices.count < two_std_dev_below_average
+    end.compact
+  end
+
+  def average_invoices_per_day
+    (sales_engine.invoices.all.count/7.0).round(2)
+  end
+
+  def actual_invoices_per_day
+    days = Hash.new(0)
+
+    sales_engine.invoices.all.each do |invoice|
+      day = invoice.created_at.strftime("%A")
+      days[day] += 1
+    end
+    days
+  end
+
+  def average_invoices_per_day_standard_deviation
+    average = average_invoices_per_day
+
+    difference = actual_invoices_per_day.map do |day, sales|
+      (sales - average) ** 2
+    end
+
+    sum = difference.reduce(:+)
+    Math.sqrt(sum / (difference.length - 1)).round(2)
+  end
+
+  def top_days_by_invoice_count
+    one_std_dev_above_average = average_invoices_per_day + average_invoices_per_day_standard_deviation
+    actual_invoices_per_day.map do |day, sales|
+      day if sales > one_std_dev_above_average
+    end.compact
+  end
+
+  def invoice_status(status)
+    count = sales_engine.invoices.all.reduce(0) do |count, invoice|
+      count += 1 if invoice.status == status.to_sym
+      count
+    end
+
+    percent = (count.to_f/sales_engine.invoices.all.count) * 100
+    BigDecimal.new('%.2f' % percent).round(2).to_f
   end
 end

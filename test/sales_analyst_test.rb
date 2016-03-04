@@ -10,6 +10,7 @@ class SalesAnalystTest < Minitest::Test
     se = SalesEngine.from_csv({
       :items     => "./data/items_small.csv",
       :merchants => "./data/merchants_small.csv",
+      :invoices  => "./data/invoices_small.csv"
     })
 
 
@@ -60,5 +61,39 @@ class SalesAnalystTest < Minitest::Test
   def test_can_find_golden_items
     assert sa.golden_items.is_a?(Array)
     assert_equal 1, sa.golden_items.count
+  end
+
+  def test_can_find_average_invoices_per_merchant
+    assert_equal 1.0, sa.average_invoices_per_merchant
+  end
+
+  def test_can_find_average_invoices_per_merchant_standard_deviation
+    assert_equal 1.05, sa.average_invoices_per_merchant_standard_deviation
+  end
+
+  def test_can_merchants_with_invoice_count_two_standard_deviations_above_average
+    assert_equal [], sa.top_merchants_by_invoice_count
+  end
+
+  def test_can_merchants_with_invoice_count_two_standard_deviations_below_average
+    assert_equal [], sa.bottom_merchants_by_invoice_count
+  end
+
+  def test_average_invoices_per_day
+    assert_equal 1.43, sa.average_invoices_per_day
+  end
+
+  def test_average_invoices_per_day_standard_deviation
+    assert_equal 1.38, sa.average_invoices_per_day_standard_deviation
+  end
+
+  def test_top_days_by_invoice_count
+    assert_equal ["Friday"], sa.top_days_by_invoice_count
+  end
+
+  def test_can_calculate_status_percent_of_whole
+    assert_equal 10, sa.invoice_status(:returned)
+    assert_equal 20, sa.invoice_status(:pending)
+    assert_equal 70, sa.invoice_status(:shipped)
   end
 end

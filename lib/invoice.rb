@@ -22,7 +22,7 @@ class Invoice
   end
 
   def status
-    invoice_data[3]
+    invoice_data[3].to_sym
   end
 
   def created_at
