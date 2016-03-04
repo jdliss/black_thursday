@@ -53,10 +53,10 @@ class InvoiceRepositoryTest < Minitest::Test
   end
 
   def test_can_find_all_by_status
-    results = invoice_repo.find_all_by_status("pending")
+    results = invoice_repo.find_all_by_status(:shipped)
 
     assert results.is_a?(Array)
-    assert_equal 6, results.count
+    assert_equal 7, results.count
     assert results[0].is_a?(Invoice)
   end
 end
