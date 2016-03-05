@@ -28,8 +28,8 @@ class InvoiceItemRepositoryTest < Minitest::Test
   end
 
   def test_can_find_find_all_invoice_items_by_item_id
-    assert invoice_items_repo.find_all_by_item_id(263519844).is_a?(Array)
-    assert invoice_items_repo.find_all_by_item_id(263519844)[0].is_a?(InvoiceItem)
+    assert invoice_items_repo.find_all_by_item_id(263542298).is_a?(Array)
+    assert invoice_items_repo.find_all_by_item_id(263542298)[0].is_a?(InvoiceItem)
   end
 
   def test_can_find_all_invoice_items_by_invoice_id

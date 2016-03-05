@@ -1,4 +1,5 @@
 require 'time'
+require 'pry'
 
 class Invoice
   attr_accessor :invoice_data,
@@ -35,5 +36,31 @@ class Invoice
 
   def merchant
     invoice_repository.sales_engine.merchants.find_by_id(merchant_id)
+  end
+
+  def invoice_items
+    invoice_repository.sales_engine.invoice_items.find_all_by_invoice_id(id)
+  end
+
+  def items
+    invoice_items.map do |invoice_item|
+      invoice_repository.sales_engine.items.find_by_id(invoice_item.item_id)
+    end.compact
+  end
+
+  def transactions
+    invoice_repository.sales_engine.transactions.find_all_by_invoice_id(id)
+  end
+
+  def customer
+    invoice_repository.sales_engine.customers.find_by_id(customer_id)
+  end
+
+  def is_paid_in_full?
+    transactions.any? { |transaction| transaction.result == "success" }
+  end
+
+  def total
+    invoice_items.map { |invoice_item| invoice_item.unit_price * invoice_item.quantity }.reduce(:+)
   end
 end
