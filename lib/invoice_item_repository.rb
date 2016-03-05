@@ -1,3 +1,4 @@
+require_relative 'invoice_item'
 
 class InvoiceItemRepository
   attr_accessor :sales_engine,
