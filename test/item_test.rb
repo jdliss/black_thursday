@@ -13,8 +13,11 @@ class ItemTest < Minitest::Test
     se = SalesEngine.from_csv({
       :items     => "./data/items_small.csv",
       :merchants => "./data/merchants_small.csv",
+      :invoices  => "./data/invoices_small.csv",
+      :invoice_items => "./data/invoice_items_small.csv",
+      :transactions  => "./data/transactions_small.csv",
+      :customers => "./data/customers_small.csv"
     })
-
     @items_repository = se.items
     @item = @items_repository.all[0]
   end

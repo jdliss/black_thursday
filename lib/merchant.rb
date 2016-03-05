@@ -25,4 +25,18 @@ class Merchant
   def invoices
     merchant_repository.sales_engine.invoices.find_all_by_merchant_id(id)
   end
+
+  def customers
+    merchant_invoices = merchant_repository.sales_engine.invoices.find_all_by_merchant_id(id)
+
+    customer_ids = merchant_invoices.map do |invoice|
+      invoice.customer_id
+    end.uniq
+
+    customers_repo = merchant_repository.sales_engine.customers
+
+    customer_ids.map do |id|
+      customers_repo.find_by_id(id)
+    end
+  end
 end

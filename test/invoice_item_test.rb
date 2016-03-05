@@ -15,7 +15,9 @@ class InvoiceItemTest < Minitest::Test
       :items     => "./data/items_small.csv",
       :merchants => "./data/merchants_small.csv",
       :invoices  => "./data/invoices_small.csv",
-      :invoice_items => "./data/invoice_items_small.csv"
+      :invoice_items => "./data/invoice_items_small.csv",
+      :transactions  => "./data/transactions_small.csv",
+      :customers => "./data/customers_small.csv"
     })
 
     @invoice_item_repo = se.invoice_items
@@ -28,7 +30,7 @@ class InvoiceItemTest < Minitest::Test
     end
 
     def test_can_find_item_id
-      assert_equal 263519844, invoice_item.item_id
+      assert_equal 263395617, invoice_item.item_id
     end
 
     def test_can_find_invoice_id

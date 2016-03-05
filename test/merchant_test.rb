@@ -6,12 +6,16 @@ require_relative '../lib/merchant_repository'
 require_relative '../lib/sales_engine'
 
 class MerchantTest < Minitest::Test
-  attr_accessor :items_repository,
+  attr_accessor :merchant_repository,
                 :merchant
   def setup
     se = SalesEngine.from_csv({
       :items     => "./data/items_small.csv",
       :merchants => "./data/merchants_small.csv",
+      :invoices  => "./data/invoices_small.csv",
+      :invoice_items => "./data/invoice_items_small.csv",
+      :transactions  => "./data/transactions_small.csv",
+      :customers => "./data/customers_small.csv"
     })
 
     @merchant_repository = se.merchants
@@ -76,9 +80,17 @@ class MerchantTest < Minitest::Test
       :merchants => "./data/merchants_small.csv",
       :invoices  => "./data/invoices_small.csv"
     })
-
     merchant = se.merchants.all[9]
 
     assert_equal merchant.invoices[0].merchant_id, merchant.id
+  end
+
+  def test_can_find_all_customers_of_merchant
+    merchant = merchant_repository.all.last
+    customers = merchant.customers
+
+    refute customers.empty?
+    assert_equal 2, customers.length
+    assert customers[0].is_a?(Customer)
   end
 end
