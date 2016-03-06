@@ -8,20 +8,28 @@ class SalesAnalyst
     @sales_engine = sales_engine
   end
 
+  def all_merchants
+    sales_engine.merchants.all
+  end
+
   def average_items_per_merchant
     (sales_engine.items.all.count/
         sales_engine.merchants.all.count.to_f).round(2)
   end
 
+  def finish_standard_deviation(difference)
+    sum = difference.reduce(:+)
+    Math.sqrt(sum / (difference.length - 1)).round(2)
+  end
+
   def average_items_per_merchant_standard_deviation
     average_items = average_items_per_merchant
 
-    difference = sales_engine.merchants.all.map do |merchant|
+    difference = all_merchants.map do |merchant|
       (merchant.items.length - average_items) ** 2
     end
 
-    sum = difference.reduce(:+)
-    Math.sqrt(sum / (difference.length - 1)).round(2)
+    finish_standard_deviation(difference)
   end
 
   def merchants_with_high_item_count
@@ -61,8 +69,7 @@ class SalesAnalyst
       (item.unit_price - average_price_of_items) ** 2
     end
 
-    sum = difference.reduce(:+)
-    Math.sqrt(sum / (difference.length - 1)).round(2)
+    finish_standard_deviation(difference)
   end
 
 
@@ -82,13 +89,13 @@ class SalesAnalyst
   def average_invoices_per_merchant_standard_deviation
     average_invoices = average_invoices_per_merchant
 
-    difference = sales_engine.merchants.all.map do |merchant|
+    difference = all_merchants.map do |merchant|
       (merchant.invoices.length - average_invoices) ** 2
     end
 
-    sum = difference.reduce(:+)
-    Math.sqrt(sum / (difference.length - 1)).round(2)
+    finish_standard_deviation(difference)
   end
+
 
   def top_merchants_by_invoice_count
     average = average_invoices_per_merchant
@@ -131,8 +138,7 @@ class SalesAnalyst
       (sales - average) ** 2
     end
 
-    sum = difference.reduce(:+)
-    Math.sqrt(sum / (difference.length - 1)).round(2)
+    finish_standard_deviation(difference)
   end
 
   def top_days_by_invoice_count
