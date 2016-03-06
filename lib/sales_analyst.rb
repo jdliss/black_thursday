@@ -127,7 +127,7 @@ class SalesAnalyst
   def average_invoices_per_day_standard_deviation
     average = average_invoices_per_day
 
-    difference = actual_invoices_per_day.map do |day, sales|
+    difference = actual_invoices_per_day.map do |_day, sales|
       (sales - average) ** 2
     end
 
@@ -144,12 +144,12 @@ class SalesAnalyst
   end
 
   def invoice_status(status)
-    count = sales_engine.invoices.all.reduce(0) do |count, invoice|
+    status_count = sales_engine.invoices.all.reduce(0) do |count, invoice|
       count += 1 if invoice.status == status.to_sym
       count
     end
 
-    percent = (count.to_f/sales_engine.invoices.all.count) * 100
+    percent = (status_count.to_f/sales_engine.invoices.all.count) * 100
     BigDecimal.new('%.2f' % percent).round(2).to_f
   end
 end
