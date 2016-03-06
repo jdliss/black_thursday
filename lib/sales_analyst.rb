@@ -14,10 +14,10 @@ class SalesAnalyst
   end
 
   def average_items_per_merchant_standard_deviation
-    average = average_items_per_merchant
+    average_items = average_items_per_merchant
 
     difference = sales_engine.merchants.all.map do |merchant|
-      (merchant.items.length - average) ** 2
+      (merchant.items.length - average_items) ** 2
     end
 
     sum = difference.reduce(:+)
@@ -80,10 +80,10 @@ class SalesAnalyst
   end
 
   def average_invoices_per_merchant_standard_deviation
-    average = average_invoices_per_merchant
+    average_invoices = average_invoices_per_merchant
 
     difference = sales_engine.merchants.all.map do |merchant|
-      (merchant.invoices.length - average) ** 2
+      (merchant.invoices.length - average_invoices) ** 2
     end
 
     sum = difference.reduce(:+)
