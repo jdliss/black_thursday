@@ -1,5 +1,4 @@
 require 'csv'
-require 'pry'
 require_relative 'item'
 
 class ItemRepository
@@ -10,7 +9,7 @@ class ItemRepository
   def initialize(items_data, sales_engine)
     @sales_engine = sales_engine
 
-    @items_data.map do |item|
+    @items = items_data.map do |item|
       Item.new(item, self)
     end
   end

@@ -1,6 +1,5 @@
 require_relative 'sales_engine'
 require_relative 'customer'
-require 'pry'
 
 class CustomerRepository
   attr_accessor :customers,

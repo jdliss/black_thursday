@@ -30,7 +30,8 @@ class Customer
   end
 
   def merchants
-    customer_invoices = customer_repository.sales_engine.invoices.find_all_by_customer_id(id)
+    customer_invoices =
+    customer_repository.sales_engine.invoices.find_all_by_customer_id(id)
 
     merchant_ids = customer_invoices.map do |invoice|
       invoice.merchant_id

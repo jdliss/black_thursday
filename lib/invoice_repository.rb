@@ -1,4 +1,4 @@
-require_relative "invoice.rb"
+require_relative "invoice"
 
 class InvoiceRepository
 

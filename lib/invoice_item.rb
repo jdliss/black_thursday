@@ -1,5 +1,4 @@
 require 'time'
-require "pry"
 
 class InvoiceItem
   attr_accessor :data,
