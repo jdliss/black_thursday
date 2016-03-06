@@ -27,7 +27,8 @@ class Merchant
   end
 
   def customers
-    merchant_invoices = merchant_repository.sales_engine.invoices.find_all_by_merchant_id(id)
+    merchant_invoices =
+        merchant_repository.sales_engine.invoices.find_all_by_merchant_id(id)
 
     customer_ids = merchant_invoices.map do |invoice|
       invoice.customer_id

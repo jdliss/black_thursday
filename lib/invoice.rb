@@ -60,6 +60,8 @@ class Invoice
   end
 
   def total
-    invoice_items.map { |invoice_item| invoice_item.unit_price * invoice_item.quantity }.reduce(:+)
+    invoice_items.map do |invoice_item|
+      invoice_item.unit_price * invoice_item.quantity
+    end.reduce(:+)
   end
 end

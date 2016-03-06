@@ -26,10 +26,14 @@ class CustomerRepository
   end
 
   def find_all_by_first_name(first)
-    customers.find_all { |customer| customer.first_name.downcase.include?(first.downcase) }
+    customers.find_all do |customer|
+      customer.first_name.downcase.include?(first.downcase)
+    end
   end
 
   def find_all_by_last_name(last)
-    customers.find_all { |customer| customer.last_name.downcase.include?(last.downcase) }
+    customers.find_all do
+      |customer| customer.last_name.downcase.include?(last.downcase)
+    end
   end
 end

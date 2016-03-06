@@ -9,7 +9,8 @@ class SalesAnalyst
   end
 
   def average_items_per_merchant
-    (sales_engine.items.all.count/sales_engine.merchants.all.count.to_f).round(2)
+    (sales_engine.items.all.count/
+        sales_engine.merchants.all.count.to_f).round(2)
   end
 
   def average_items_per_merchant_standard_deviation
@@ -74,7 +75,8 @@ class SalesAnalyst
   end
 
   def average_invoices_per_merchant
-    (sales_engine.invoices.all.count/sales_engine.merchants.all.count.to_f).round(2)
+    (sales_engine.invoices.all.count/
+        sales_engine.merchants.all.count.to_f).round(2)
   end
 
   def average_invoices_per_merchant_standard_deviation
@@ -134,7 +136,8 @@ class SalesAnalyst
   end
 
   def top_days_by_invoice_count
-    one_std_dev_above_average = average_invoices_per_day + average_invoices_per_day_standard_deviation
+    one_std_dev_above_average = average_invoices_per_day +
+        average_invoices_per_day_standard_deviation
     actual_invoices_per_day.map do |day, sales|
       day if sales > one_std_dev_above_average
     end.compact

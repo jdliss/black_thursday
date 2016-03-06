@@ -26,17 +26,20 @@ class TransactionRepository
   end
 
   def find_all_by_invoice_id(invoice_id)
-    transactions.find_all { |transaction| transaction.invoice_id == invoice_id.to_i }
+    transactions.find_all do |transaction|
+      transaction.invoice_id == invoice_id.to_i
+    end
   end
 
   def find_all_by_credit_card_number(number)
-    transactions.find_all { |transaction| transaction.credit_card_number == number.to_i}
+    transactions.find_all do |transaction|
+      transaction.credit_card_number == number.to_i
+    end
   end
 
   def find_all_by_result(result)
-    transactions.find_all { |transaction| transaction.result.downcase == result.downcase}
+    transactions.find_all do |transaction|
+      transaction.result.downcase == result.downcase
+    end
   end
-
-  
-
 end
