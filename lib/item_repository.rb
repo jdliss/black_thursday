@@ -10,7 +10,7 @@ class ItemRepository
   def initialize(items_data, sales_engine)
     @sales_engine = sales_engine
 
-    @items = items_data.map do |item|
+    @items_data.map do |item|
       Item.new(item, self)
     end
   end
@@ -33,7 +33,6 @@ class ItemRepository
   end
 
   def find_all_with_description(substring)
-    # return [] if substring.class != String
     items.find_all { |item| item.description.downcase.include?(substring.downcase)}
   end
 

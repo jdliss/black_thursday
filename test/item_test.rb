@@ -1,4 +1,4 @@
-gem 'minitest', '~> 5.2'
+require_relative 'test_helper'
 require 'minitest/autorun'
 require 'minitest/pride'
 require 'time'
