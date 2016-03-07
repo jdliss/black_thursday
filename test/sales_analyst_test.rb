@@ -1,4 +1,5 @@
 require_relative 'test_helper'
+require 'time'
 require 'minitest/autorun'
 require 'minitest/pride'
 require_relative '../lib/sales_engine'
@@ -11,7 +12,10 @@ class SalesAnalystTest < Minitest::Test
     se = SalesEngine.from_csv({
       :items     => "./data/items_small.csv",
       :merchants => "./data/merchants_small.csv",
-      :invoices  => "./data/invoices_small.csv"
+      :invoices  => "./data/invoices_small.csv",
+      :invoice_items => "./data/invoice_items_small.csv",
+      :transactions  => "./data/transactions_small.csv",
+      :customers => "./data/customers_small.csv"
     })
 
 
@@ -69,7 +73,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_can_find_average_invoices_per_merchant_standard_deviation
-    assert_equal 1.41, sa.average_invoices_per_merchant_standard_deviation
+    assert_equal 1.37, sa.average_invoices_per_merchant_standard_deviation
   end
 
   def test_can_merchants_with_invoice_count_two_standard_deviations_above_average
@@ -98,4 +102,35 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 20, sa.invoice_status(:pending)
     assert_equal 70, sa.invoice_status(:shipped)
   end
+
+  def test_can_calculate_total_revenue_for_a_given_date
+    date = Time.parse("2009-02-07")
+    assert_equal 21067.77, sa.total_revenue_by_date(date).to_f
+  end
+
+  def test_top_x_merchant_revenue_earners
+    se = SalesEngine.from_csv({
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+      :invoices  => "./data/invoices.csv",
+      :invoice_items => "./data/invoice_items.csv",
+      :transactions  => "./data/transactions.csv",
+      :customers => "./data/customers.csv"
+    })
+
+
+    sa1 = SalesAnalyst.new(se)
+    # x = sa.top_revenue_earners(5).map do |merchant|
+    #   merchant[0].name
+    # end
+    # assert_equal nil, x
+
+    assert_equal 5, sa.top_revenue_earners(5).length
+    assert_equal nil, sa.top_revenue_earners(5)[0]
+  end
+
+  # def test_find_merchants_with_pending_invoices
+  #   assert sa.merchants_with_pending_invoices.is_a?(Array)
+  #   assert sa.merchants_with_pending_invoices[0].is_a?(Merchant)
+  # end
 end

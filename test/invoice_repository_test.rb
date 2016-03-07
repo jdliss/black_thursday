@@ -60,4 +60,10 @@ class InvoiceRepositoryTest < Minitest::Test
     assert_equal 7, results.count
     assert results[0].is_a?(Invoice)
   end
+
+  def test_can_find_all_by_date
+    date = Time.parse("2009-02-07").strftime("%D")
+    assert_equal 1, invoice_repo.find_all_by_date(date).length
+    assert invoice_repo.find_all_by_date(date).first.is_a?(Invoice)
+  end
 end

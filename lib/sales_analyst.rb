@@ -158,4 +158,56 @@ class SalesAnalyst
     percent = (status_count.to_f/sales_engine.invoices.all.count) * 100
     BigDecimal.new('%.2f' % percent).round(2).to_f
   end
+
+  def total_revenue_by_date(date)
+    date = date.strftime('%D') if date.is_a?(Time)
+    invoices_on_date = sales_engine.invoices.find_all_by_date(date)
+
+    invoices_on_date.reduce(0) do |total, invoice|
+      total += invoice.total
+    end
+  end
+
+  def top_revenue_earners(num=20)
+    top_earners = Hash.new
+    all_merchants.map.with_index do |merchant, index|
+      top_earners[merchant] = merchant.invoices.reduce(0) do |total, invoice|
+        # require 'pry'; binding.pry
+        if invoice.total.nil?
+          total += 0
+        else
+          total += invoice.total
+        end
+        total
+      end
+
+
+    end
+    x = top_earners.sort_by do |pair|
+      pair[1]
+    end.reverse.to_h.keys[0..(num-1)]
+    # require 'pry'; binding.pry
+    #
+    # all_merchants.map.with_index do |merchant, index|
+    #   top_earners[merchant] = merchant.invoices.reduce(0) do |total, invoice|
+    #     total += invoice.total unless invoice.total.nil?
+    #     total
+    #   end.to_f
+    #   # puts index
+    # end
+    # result = top_earners.sort_by do |key, value|
+    #   value
+    # end.to_h
+    # result.keys.reverse[0..(num-1)]
+  end
+
+  def merchants_with_pending_invoices
+    all_merchants.map do |merchant|
+      merchant.invoices.map do |invoice|
+        invoice.transactions.all? do |transaction|
+          merchant if transaction.result == "failed"
+        end
+      end
+    end.compact
+  end
 end

@@ -36,4 +36,11 @@ class InvoiceRepository
   def find_all_by_status(status)
     invoices.find_all { |invoice| invoice.status.downcase == status.downcase }
   end
+
+  def find_all_by_date(date)
+    date = date.strftime('%D') if date.is_a?(Time)
+    invoices.find_all do |invoice|
+      invoice.created_at.strftime("%D") == date
+    end
+  end
 end
