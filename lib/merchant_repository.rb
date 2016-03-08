@@ -10,7 +10,7 @@ class MerchantRepository
     @sales_engine = sales_engine
 
 
-    @merchants = merchants_data.map do |merchant|
+    @merchants ||= merchants_data.map do |merchant|
       Merchant.new(merchant, self)
     end
     @merchants
@@ -40,4 +40,9 @@ class MerchantRepository
     end
   end
 
+  def merchants_created_in_month(month)
+    merchants.find_all do |merchant|
+      merchant.created_at.strftime("%B").downcase == month.downcase
+    end
+  end
 end

@@ -32,7 +32,7 @@ class TransactionRepositoryTest < Minitest::Test
 
   def test_can_find_all_transactions_by_invoice_id
     assert transaction_repository.find_all_by_invoice_id(2179).is_a?(Array)
-    assert_equal 2, transaction_repository.find_all_by_invoice_id(2179).length
+    assert_equal 1, transaction_repository.find_all_by_invoice_id(2179).length
   end
 
   def test_can_find_all_transactions_by_credit_card_number

@@ -8,7 +8,7 @@ class TransactionRepository
   def initialize(transaction_data, sales_engine)
     @sales_engine = sales_engine
 
-    @transactions = transaction_data.map do |transaction|
+    @transactions ||= transaction_data.map do |transaction|
       Transaction.new(transaction, self)
     end
   end

@@ -9,13 +9,13 @@ class ItemRepository
   def initialize(items_data, sales_engine)
     @sales_engine = sales_engine
 
-    @items = items_data.map do |item|
+    @items ||= items_data.map do |item|
       Item.new(item, self)
     end
   end
 
   def inspect
-    "#<#{self.class} #{@invoices.size} rows>"
+    "#<#{self.class} #{@items.size} rows>"
   end
 
   def all

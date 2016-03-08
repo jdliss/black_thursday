@@ -8,7 +8,7 @@ class InvoiceRepository
   def initialize(invoice_data, sales_engine)
     @sales_engine = sales_engine
 
-    @invoices = invoice_data.map do |invoice|
+    @invoices ||= invoice_data.map do |invoice|
       Invoice.new(invoice, self)
     end
   end
@@ -41,6 +41,13 @@ class InvoiceRepository
     date = date.strftime('%D') if date.is_a?(Time)
     invoices.find_all do |invoice|
       invoice.created_at.strftime("%D") == date
+    end
+  end
+
+  def find_all_by_month(month)
+    month = month.downcase
+    invoices.find_all do |invoice|
+      invoice.created_at.strftime("%B") == month
     end
   end
 end

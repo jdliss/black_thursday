@@ -164,50 +164,89 @@ class SalesAnalyst
     invoices_on_date = sales_engine.invoices.find_all_by_date(date)
 
     invoices_on_date.reduce(0) do |total, invoice|
-      total += invoice.total
+      if invoice.total.nil?
+        total += 0
+      else
+        total += invoice.total
+      end
     end
   end
 
   def top_revenue_earners(num=20)
     top_earners = Hash.new
-    all_merchants.map.with_index do |merchant, index|
-      top_earners[merchant] = merchant.invoices.reduce(0) do |total, invoice|
-        # require 'pry'; binding.pry
-        if invoice.total.nil?
-          total += 0
-        else
-          total += invoice.total
-        end
-        total
-      end
-
-
+    all_merchants.map do |merchant|
+      top_earners[merchant] = merchant.revenue_for_merchant
     end
-    x = top_earners.sort_by do |pair|
+
+    top_earners.sort_by do |pair|
       pair[1]
-    end.reverse.to_h.keys[0..(num-1)]
-    # require 'pry'; binding.pry
-    #
-    # all_merchants.map.with_index do |merchant, index|
-    #   top_earners[merchant] = merchant.invoices.reduce(0) do |total, invoice|
-    #     total += invoice.total unless invoice.total.nil?
-    #     total
-    #   end.to_f
-    #   # puts index
-    # end
-    # result = top_earners.sort_by do |key, value|
-    #   value
-    # end.to_h
-    # result.keys.reverse[0..(num-1)]
+    end.to_h.keys.reverse[0..(num-1)]
+  end
+
+  def merchants_ranked_by_revenue
+    top_revenue_earners(0)
   end
 
   def merchants_with_pending_invoices
     all_merchants.map do |merchant|
-      merchant.invoices.map do |invoice|
-        invoice.transactions.all? do |transaction|
-          merchant if transaction.result == "failed"
-        end
+      merchant if merchant.invoices.any? do |invoice|
+        !invoice.is_paid_in_full?
       end
     end.compact
+  end
+
+  def merchants_with_only_one_item
+    all_merchants.map do |merchant|
+      merchant if merchant.items.length == 1
+    end.compact
+  end
+
+  def merchants_with_only_one_item_registered_in_month(month)
+    merchants_with_only_one_item.find_all do |merchant|
+      merchant.created_at.strftime("%B").downcase == month.downcase
+    end
+  end
+
+  def revenue_by_merchant(merchant_id)
+    merchant = sales_engine.merchants.find_by_id(merchant_id)
+    merchant.revenue_for_merchant
+  end
+
+  def most_sold_item_for_merchant(merchant_id)
+    most_sold = Hash.new(0)
+    merchant = sales_engine.merchants.find_by_id(merchant_id)
+    merchant.successful_invoices.map do |invoice|
+      invoice.invoice_items.map do |invoice_item|
+        most_sold[invoice_item.item_id] += invoice_item.quantity
+      end
+    end
+    zipped = most_sold.sort_by do |pair|
+      pair[1]
+    end
+
+    top = zipped[-1]
+    items = zipped.find_all do |item|
+      item[1] == top[1]
+    end
+
+    items.map do |item|
+      sales_engine.items.find_by_id(item[0])
+    end.compact
+  end
+
+  def best_item_for_merchant(merchant_id)
+    best_items = Hash.new(0)
+    merchant = sales_engine.merchants.find_by_id(merchant_id)
+    merchant.successful_invoices.map do |invoice|
+      invoice.invoice_items.map do |invoice_item|
+        best_items[invoice_item.item_id] += invoice_item.unit_price *
+                                              invoice_item.quantity
+      end
+    end
+    zipped = best_items.sort_by do |pair|
+      pair[1]
+    end
+
+    sales_engine.items.find_by_id(zipped[-1][0])
   end
 end

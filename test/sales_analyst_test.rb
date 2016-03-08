@@ -109,28 +109,39 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_top_x_merchant_revenue_earners
-    se = SalesEngine.from_csv({
-      :items     => "./data/items.csv",
-      :merchants => "./data/merchants.csv",
-      :invoices  => "./data/invoices.csv",
-      :invoice_items => "./data/invoice_items.csv",
-      :transactions  => "./data/transactions.csv",
-      :customers => "./data/customers.csv"
-    })
-
-
-    sa1 = SalesAnalyst.new(se)
-    # x = sa.top_revenue_earners(5).map do |merchant|
-    #   merchant[0].name
-    # end
-    # assert_equal nil, x
-
     assert_equal 5, sa.top_revenue_earners(5).length
-    assert_equal nil, sa.top_revenue_earners(5)[0]
+    assert_equal Merchant, sa.top_revenue_earners(5)[0].class
+    assert_equal 10, sa.top_revenue_earners.length
   end
 
-  # def test_find_merchants_with_pending_invoices
-  #   assert sa.merchants_with_pending_invoices.is_a?(Array)
-  #   assert sa.merchants_with_pending_invoices[0].is_a?(Merchant)
-  # end
+  def test_find_merchants_with_pending_invoices
+    assert sa.merchants_with_pending_invoices.is_a?(Array)
+    assert sa.merchants_with_pending_invoices[0].is_a?(Merchant)
+  end
+
+  def test_merhants_ranked_by_revenue
+    assert_equal 10, sa.merchants_ranked_by_revenue.length
+  end
+
+  def test_merchants_with_only_one_item
+    assert_equal 6, sa.merchants_with_only_one_item.length
+  end
+
+  def test_merchant_with_only_one_item_registered_in_month
+    assert_equal 3, sa.merchants_with_only_one_item_registered_in_month("march").length
+  end
+
+  def test_revenue_by_merchant
+    assert_equal 21067.77, sa.revenue_by_merchant(12335938)
+  end
+
+  def test_most_sold_item_for_merchant
+    assert sa.most_sold_item_for_merchant(12335938).is_a?(Array)
+    assert sa.most_sold_item_for_merchant(12335938)[0].is_a?(Item)
+    assert_equal 1, sa.most_sold_item_for_merchant(12335938).count
+  end
+
+  def test_best_item_for_merchant
+    assert sa.best_item_for_merchant(12335938).is_a?(Item)
+  end
 end

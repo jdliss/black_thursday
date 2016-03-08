@@ -8,7 +8,7 @@ class CustomerRepository
   def initialize(transaction_data, sales_engine)
     @sales_engine = sales_engine
 
-    @customers = transaction_data.map do |customer|
+    @customers ||= transaction_data.map do |customer|
       Customer.new(customer, self)
     end
   end
