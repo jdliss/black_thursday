@@ -67,7 +67,7 @@ class InvoiceTest < Minitest::Test
     refute items.empty?
     assert items[1].is_a?(Item)
     assert_equal 2, items.length
-    assert_equal 263395617, items[0].id
+    assert_equal 263396013, items[0].id
   end
 
   def test_can_find_all_transactions_connected_to_invoice
@@ -75,8 +75,8 @@ class InvoiceTest < Minitest::Test
     transactions = invoice.transactions
 
     refute transactions.empty?
-    assert_equal 2, transactions.length
-    assert transactions[1].is_a?(Transaction)
+    assert_equal 1, transactions.length
+    assert transactions[0].is_a?(Transaction)
   end
 
   def test_can_find_customer_connected_to_invoice

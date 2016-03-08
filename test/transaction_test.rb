@@ -29,7 +29,7 @@ class TransactionTest < Minitest::Test
   end
 
   def test_can_return_invoice_id
-    assert_equal 2179, transaction.invoice_id
+    assert_equal 1, transaction.invoice_id
   end
 
   def test_can_return_credit_card_number

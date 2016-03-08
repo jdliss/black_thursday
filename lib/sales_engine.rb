@@ -18,17 +18,17 @@ class SalesEngine
   def initialize(items_table=nil, merchants_table=nil, invoice_table=nil,
      invoice_items_table=nil, transactions_table=nil, customers_table=nil)
 
-    @items = ItemRepository.new(items_table, self) if
+    @items ||= ItemRepository.new(items_table, self) if
         items_table
-    @merchants = MerchantRepository.new(merchants_table, self) if
+    @merchants ||= MerchantRepository.new(merchants_table, self) if
         merchants_table
-    @invoices = InvoiceRepository.new(invoice_table, self) if
+    @invoices ||= InvoiceRepository.new(invoice_table, self) if
         invoice_table
-    @invoice_items = InvoiceItemRepository.new(invoice_items_table, self) if
+    @invoice_items ||= InvoiceItemRepository.new(invoice_items_table, self) if
         invoice_items_table
-    @transactions = TransactionRepository.new(transactions_table, self) if
+    @transactions ||= TransactionRepository.new(transactions_table, self) if
         transactions_table
-    @customers = CustomerRepository.new(customers_table, self) if
+    @customers ||= CustomerRepository.new(customers_table, self) if
         customers_table
   end
 

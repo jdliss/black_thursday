@@ -7,7 +7,7 @@ class InvoiceItemRepository
   def initialize(invoice_item_data, sales_engine)
     @sales_engine = sales_engine
 
-    @invoice_items = invoice_item_data.map do |invoice_item|
+    @invoice_items ||= invoice_item_data.map do |invoice_item|
       InvoiceItem.new(invoice_item, self)
     end
   end

@@ -48,5 +48,7 @@ class MerchantRepositoryTest < Minitest::Test
     assert results.empty?
   end
 
-
+  def test_find_all_merchant_by_month_created
+    assert_equal 3, merchant_repository.merchants_created_in_month("March").count
+  end
 end

@@ -47,7 +47,7 @@ class InvoiceItemTest < Minitest::Test
     end
 
     def test_can_find_when_it_was_created
-      assert_equal Time.parse("2012-03-27 14:54:09 UTC"), invoice_item.created_at
+      assert_equal Time.parse("2009-02-07 14:54:09 UTC"), invoice_item.created_at
     end
 
     def test_can_find_when_it_was_updated

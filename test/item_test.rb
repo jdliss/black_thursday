@@ -24,7 +24,7 @@ class ItemTest < Minitest::Test
 
 # TODO TEST EDGE CASES
   def test_can_return_id_of_item
-    assert_equal 263395617, item.id
+    assert_equal 263515158, item.id
   end
 
   def test_can_return_name_of_item
