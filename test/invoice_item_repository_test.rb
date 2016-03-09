@@ -27,15 +27,18 @@ class InvoiceItemRepositoryTest < Minitest::Test
 
   def test_can_find_invoice_item_by_id
     assert invoice_items_repo.find_by_id(1).is_a?(InvoiceItem)
+    assert_equal nil, invoice_items_repo.find_by_id('slkdfj')
   end
 
   def test_can_find_find_all_invoice_items_by_item_id
     assert invoice_items_repo.find_all_by_item_id(263542298).is_a?(Array)
     assert invoice_items_repo.find_all_by_item_id(263542298)[0].is_a?(InvoiceItem)
+    assert_equal nil, invoice_items_repo.find_all_by_item_id("ksjdhfj")[0]
   end
 
   def test_can_find_all_invoice_items_by_invoice_id
     assert invoice_items_repo.find_all_by_invoice_id(1).is_a?(Array)
     assert invoice_items_repo.find_all_by_invoice_id(1)[0].is_a?(InvoiceItem)
+    assert_equal nil, invoice_items_repo.find_all_by_invoice_id("ksjdhfj")[0]
   end
 end

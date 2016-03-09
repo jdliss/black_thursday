@@ -29,6 +29,7 @@ class CustomerRepositoryTest < Minitest::Test
 
   def test_can_find_customer_by_id
     assert customer_repository.find_by_id(1).is_a?(Customer)
+    assert_equal nil, customer_repository.find_by_id("lsdhj")
   end
 
   def test_can_find_all_customers_by_first_name
@@ -37,6 +38,7 @@ class CustomerRepositoryTest < Minitest::Test
 
     assert customer_repository.find_all_by_first_name("fghjk").is_a?(Array)
     assert customer_repository.find_all_by_first_name("fghjk").empty?
+    assert customer_repository.find_all_by_first_name(123).empty?
   end
 
   def test_can_find_all_customers_by_last_name
@@ -45,5 +47,7 @@ class CustomerRepositoryTest < Minitest::Test
 
     assert customer_repository.find_all_by_last_name("fghjk").is_a?(Array)
     assert customer_repository.find_all_by_last_name("fghjk").empty?
+    assert customer_repository.find_all_by_last_name(123).empty?
+
   end
 end

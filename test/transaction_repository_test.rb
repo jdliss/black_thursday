@@ -38,10 +38,19 @@ class TransactionRepositoryTest < Minitest::Test
   def test_can_find_all_transactions_by_credit_card_number
     assert transaction_repository.find_all_by_credit_card_number(4149654190362629).is_a?(Array)
     assert_equal 2, transaction_repository.find_all_by_credit_card_number(4149654190362629).length
+
+    assert transaction_repository.find_all_by_credit_card_number(5).is_a?(Array)
+    assert_equal 0, transaction_repository.find_all_by_credit_card_number(5).length
+
+    assert transaction_repository.find_all_by_credit_card_number("vghulk").is_a?(Array)
+    assert_equal 0, transaction_repository.find_all_by_credit_card_number("vghulk").length
   end
 
   def test_can_find_all_transactions_by_result
     assert transaction_repository.find_all_by_result("success").is_a?(Array)
     assert_equal 9, transaction_repository.find_all_by_result("success").length
+
+    assert transaction_repository.find_all_by_result(756879).is_a?(Array)
+    assert_equal 0, transaction_repository.find_all_by_result(756879).length
   end
 end

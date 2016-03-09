@@ -38,6 +38,7 @@ class TransactionRepository
   end
 
   def find_all_by_result(result)
+    return [] unless result.is_a?(String)
     transactions.find_all do |transaction|
       transaction.result.downcase == result.downcase
     end

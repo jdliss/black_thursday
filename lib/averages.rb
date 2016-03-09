@@ -17,6 +17,7 @@ module Averages
 
   def average_item_price_for_merchant(merchant_id)
     merchant = sales_engine.merchants.find_by_id(merchant_id)
+    # merchant = merchants_grouped_by_id[merchant_id].first
     item_prices = merchant_items_prices(merchant)
 
     average(item_prices.reduce(:+), item_prices.length)

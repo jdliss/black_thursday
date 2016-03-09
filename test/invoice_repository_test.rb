@@ -18,7 +18,6 @@ class InvoiceRepositoryTest < Minitest::Test
     @invoice_repo = se.invoices
   end
 
-  # TODO TEST EDGE CASES
   def test_can_instantiate_object_of_invoice_repository
     assert invoice_repo.is_a?(InvoiceRepository)
   end
@@ -55,10 +54,14 @@ class InvoiceRepositoryTest < Minitest::Test
 
   def test_can_find_all_by_status
     results = invoice_repo.find_all_by_status(:shipped)
+    empty_results = invoice_repo.find_all_by_status("dklfgjlfkd")
 
     assert results.is_a?(Array)
     assert_equal 7, results.count
     assert results[0].is_a?(Invoice)
+
+    assert empty_results.is_a?(Array)
+    assert empty_results.empty?
   end
 
   def test_can_find_all_by_date

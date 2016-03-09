@@ -17,7 +17,6 @@ class ItemRepositoryTest < Minitest::Test
     @items_repository = se.items
   end
 
-  # TODO TEST FOR EDGE CASES
   def test_returns_instance
     assert items_repository.is_a?(ItemRepository)
   end
@@ -33,6 +32,7 @@ class ItemRepositoryTest < Minitest::Test
   def test_find_by_id
     assert items_repository.find_by_id(263396209).is_a?(Item)
     assert_equal "Vogue Paris Original Givenchy 2307", items_repository.find_by_id(263396209).name
+    assert_equal nil, items_repository.find_by_id(-1)
     assert_equal nil, items_repository.find_by_id("gfgjhk")
   end
 
@@ -40,6 +40,7 @@ class ItemRepositoryTest < Minitest::Test
     assert items_repository.find_by_name("Vogue Paris Original Givenchy 2307").is_a?(Item)
     assert_equal 263396209, items_repository.find_by_name("Vogue Paris Original Givenchy 2307").id
     assert_equal nil, items_repository.find_by_name("gfgjhk")
+    assert_equal nil, items_repository.find_by_name(6576)
   end
 
   def test_find_all_by_description
@@ -49,7 +50,10 @@ class ItemRepositoryTest < Minitest::Test
     assert_equal 2, results.length
 
     results = items_repository.find_all_with_description("skdhfkshjf")
+    assert results.is_a?(Array)
+    assert results.empty?
 
+    results = items_repository.find_all_with_description("skdhfkshjf")
     assert results.is_a?(Array)
     assert results.empty?
   end
@@ -61,6 +65,10 @@ class ItemRepositoryTest < Minitest::Test
     assert_equal 2, results.length
 
     results = items_repository.find_all_by_price(35465768798)
+    assert results.is_a?(Array)
+    assert results.empty?
+
+    results = items_repository.find_all_by_price("bhg879ghouip")
     assert results.is_a?(Array)
     assert results.empty?
   end
@@ -83,6 +91,10 @@ class ItemRepositoryTest < Minitest::Test
     assert_equal 3, results.length
 
     results = items_repository.find_all_by_merchant_id("ksdhkj")
+    assert results.is_a?(Array)
+    assert results.empty?
+
+    results = items_repository.find_all_by_merchant_id(6576)
     assert results.is_a?(Array)
     assert results.empty?
   end

@@ -116,12 +116,14 @@ class SalesAnalyst
 
   def revenue_by_merchant(merchant_id)
     merchant = sales_engine.merchants.find_by_id(merchant_id)
+    # merchant = merchants_grouped_by_id[merchant_id].first
     merchant.revenue_for_merchant
   end
 
   def most_sold_item_for_merchant(merchant_id)
     most_sold = Hash.new(0)
     merchant = sales_engine.merchants.find_by_id(merchant_id)
+    # merchant = merchants_grouped_by_id[merchant_id].first
 
     merchant.successful_invoices.map do |invoice|
       invoice.invoice_items.map do |invoice_item|
@@ -134,6 +136,7 @@ class SalesAnalyst
   def best_item_for_merchant(merchant_id)
     best_items = Hash.new(0)
     merchant = sales_engine.merchants.find_by_id(merchant_id)
+    # merchant = merchants_grouped_by_id[merchant_id].first
 
     merchant.successful_invoices.map do |invoice|
       invoice.invoice_items.map do |invoice_item|
