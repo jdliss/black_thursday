@@ -1,4 +1,5 @@
 require_relative 'test_helper'
+require 'bigdecimal'
 require 'time'
 require 'minitest/autorun'
 require 'minitest/pride'
@@ -56,7 +57,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_can_find_average_item_prices
-    assert_equal 69.51, sa.average_price_of_items
+    assert_equal BigDecimal.new('69.51'), sa.average_price_of_items
   end
 
   def test_can_find_standard_deviation_of_item_prices

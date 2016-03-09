@@ -7,6 +7,28 @@ module Collections
     sales_engine.items.all
   end
 
+  def merchant_items_prices(merchant)
+    merchant.items.map do |item|
+      item.unit_price
+    end
+  end
+
+  def all_merchants_item_prices
+    sales_engine.merchants.all.map do |merchant|
+      average_item_price_for_merchant(merchant.id)
+    end
+  end
+
+  def invoices
+    sales_engine.invoices.all
+  end
+
+  def all_item_prices
+    all_items.map do |item|
+      item.unit_price
+    end
+  end
+
   def invoices_on_date(date)
     date = date.strftime('%D') if date.is_a?(Time)
     sales_engine.invoices.find_all_by_date(date)

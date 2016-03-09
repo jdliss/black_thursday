@@ -70,9 +70,6 @@ class SalesAnalyst
   end
 
   def total_revenue_by_date(date)
-    # date = date.strftime('%D') if date.is_a?(Time)
-    # invoices_on_date = sales_engine.invoices.find_all_by_date(date)
-
     invoices_on_date(date).reduce(0) do |total, invoice|
       if invoice.total.nil?
         total += 0
