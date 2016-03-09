@@ -13,7 +13,6 @@ class MerchantRepository
     @merchants ||= merchants_data.map do |merchant|
       Merchant.new(merchant, self)
     end
-    @merchants
   end
 
   def inspect

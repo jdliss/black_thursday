@@ -54,7 +54,6 @@ class Merchant
     end.uniq
 
     customers_repo = merchant_repository.sales_engine.customers
-
     customer_ids.map do |id|
       customers_repo.find_by_id(id)
     end
