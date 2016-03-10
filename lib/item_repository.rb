@@ -26,8 +26,12 @@ class ItemRepository
     input.is_a?(class_name)
   end
 
+  def formatter(input)
+    input.is_a?(String) ? input.to_i : input
+  end
+
   def find_by_id(item_id)
-    item_id = item_id.to_i if item_id.class == String
+    item_id = formatter(item_id)
     items.find { |item| item.id == item_id }
   end
 
@@ -53,7 +57,7 @@ class ItemRepository
   end
 
   def find_all_by_merchant_id(merchant_id)
-    merchant_id = merchant_id.to_i if merchant_id.class == String
+    merchant_id = formatter(merchant_id)
     items.find_all { |item| item.merchant_id == merchant_id }
   end
 end
