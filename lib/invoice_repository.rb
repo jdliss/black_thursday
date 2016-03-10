@@ -43,11 +43,4 @@ class InvoiceRepository
       invoice.created_at.strftime("%D") == date
     end
   end
-
-  def find_all_by_month(month)
-    month = month.downcase
-    invoices.find_all do |invoice|
-      invoice.created_at.strftime("%B") == month
-    end
-  end
 end
