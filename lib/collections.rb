@@ -3,18 +3,6 @@ module Collections
     sales_engine.merchants.all
   end
 
-  # def merchants_grouped_by_id
-  #   all_merchants.group_by { |merchant| merchant.id }
-  # end
-
-  # def merchants_grouped_by_revenue
-  #   # all_merchants.map do |merchant|
-  #   #   top_earners[merchant] = merchant.revenue_for_merchant
-  #   # end
-  #
-  #   all_merchants.group_by { |merchant| merchant.revenue_for_merchant }
-  # end
-
   def all_items
     sales_engine.items.all
   end
@@ -41,13 +29,8 @@ module Collections
     end
   end
 
-  # def invoices_grouped_by_date
-  #   invoices.group_by { |invoice| invoice.created_at.strftime("%D")}
-  # end
-
   def invoices_on_date(date)
     date = date.strftime('%D') if date.is_a?(Time)
-    # invoices_grouped_by_date[date]
     sales_engine.invoices.find_all_by_date(date)
   end
 
